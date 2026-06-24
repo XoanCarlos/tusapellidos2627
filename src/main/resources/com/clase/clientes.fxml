@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ToggleGroup?>
 
 <BorderPane styleClass="root-crm" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.clase.ClientesController">
 
@@ -84,11 +85,13 @@
                 <Label text="Tipo Cliente:" GridPane.rowIndex="6" />
 
                 <HBox spacing="15" GridPane.columnIndex="1" GridPane.rowIndex="6">
-
-                    <RadioButton fx:id="rbParticular" text="Particular" />
-                    <RadioButton fx:id="rbAutonomo" text="Autónomo" />
-                    <RadioButton fx:id="rbEmpresa" text="Empresa" />
-
+                    <RadioButton fx:id="rbParticular" text="Particular">
+                        <toggleGroup>
+                            <ToggleGroup fx:id="grupoTipoCliente"/>
+                        </toggleGroup>
+                    </RadioButton>
+                    <RadioButton fx:id="rbAutonomo" text="Autónomo" toggleGroup="$grupoTipoCliente" />
+                    <RadioButton fx:id="rbEmpresa" text="Empresa" toggleGroup="$grupoTipoCliente" />
                 </HBox>
 
                 <!-- Fecha -->
