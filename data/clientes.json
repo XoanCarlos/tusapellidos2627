@@ -1,0 +1,26 @@
+[
+  {
+    "id": 0,
+    "nombre": "Juan ",
+    "apellidos": "Sin Nombre",
+    "dni": "00000000T",
+    "movil": "666352854",
+    "email": "mail@mail.com",
+    "tipoCliente": "Particular",
+    "fechaAlta": "2026-06-23",
+    "activo": true,
+    "observaciones": ""
+  },
+  {
+    "id": 0,
+    "nombre": "Maria",
+    "apellidos": "Se Marchó",
+    "dni": "11111111N",
+    "movil": "656565656",
+    "email": "mari@gmil.com",
+    "tipoCliente": "Particular",
+    "fechaAlta": "2026-06-19",
+    "activo": true,
+    "observaciones": "Adios"
+  }
+]
