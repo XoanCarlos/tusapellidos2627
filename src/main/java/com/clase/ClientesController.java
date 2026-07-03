@@ -9,13 +9,18 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import com.clase.modelo.Cliente;
-import com.clase.persistencia.ClienteDAOJson;
+import com.clase.persistencia.ClienteDAO;
+//import com.clase.persistencia.ClienteDAOJson;
+import com.clase.persistencia.ClienteDAOMySQL;
 
 public class ClientesController {
     // =========================
     // DAO (SIEMPRE ARRIBA)
     // =========================
-    private final ClienteDAOJson dao = new ClienteDAOJson();
+    // Aquí JSON
+    //private final ClienteDAOJson dao = new ClienteDAOJson();
+    // Aquí MySQL
+    private final ClienteDAO dao = new ClienteDAOMySQL();
 
 
     @FXML
@@ -132,6 +137,8 @@ public class ClientesController {
 
             dao.guardar(cliente);
 
-            System.out.println("GUARDADO EN JSON ✔");
+            //System.out.println("GUARDADO EN JSON ✔");ç
+            System.out.println("GUARDADO EN MySQL ✔");
+            limpiarFormulario();
         }
     }

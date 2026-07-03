@@ -1,7 +1,7 @@
 services:
   mysql:
     image: mysql:8
-    container_name: mysql_clase
+    container_name: mysql_dam
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: bbdd
@@ -14,9 +14,9 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin_clase
+    container_name: phpmyadmin_dam
     environment:
-      PMA_HOST: mysql
+      PMA_HOST: mysql  
       PMA_PORT: 3306
     ports:
       - "8080:80"
