@@ -8,6 +8,8 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn;
 import com.clase.modelo.Cliente;
 import com.clase.persistencia.ClienteDAO;
 //import com.clase.persistencia.ClienteDAOJson;
@@ -71,6 +73,26 @@ public class ClientesController {
     @FXML
     private ToggleGroup grupoTipoCliente;
 
+    @FXML
+    private TableView<Cliente> tablaClientes;
+
+    @FXML
+    private TableColumn<Cliente,Integer> colId;
+
+    @FXML
+    private TableColumn<Cliente,String> colApellidos;
+
+    @FXML
+    private TableColumn<Cliente,String> colNombre;
+
+    @FXML
+    private TableColumn<Cliente,String> colMovil;
+
+    @FXML
+    private TableColumn<Cliente,String> colTipo;
+
+    @FXML
+    private TableColumn<Cliente,Boolean> colActivo;
 
     // =========================================
     // CONVERTIR FORMULARIO -> OBJETO CLIENTE
