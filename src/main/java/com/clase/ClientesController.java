@@ -1,6 +1,7 @@
 package com.clase;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
@@ -16,8 +17,6 @@ import com.clase.persistencia.ClienteDAO;
 //import com.clase.persistencia.ClienteDAOJson;
 import com.clase.persistencia.ClienteDAOMySQL;
 import javafx.collections.FXCollections;
-
-
 
 
 public class ClientesController {
@@ -245,6 +244,16 @@ public class ClientesController {
 
             // Limpiar el formulario
             limpiarFormulario();
+            
+            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+
+            alerta.setTitle("Información");
+
+            alerta.setHeaderText(null);
+
+            alerta.setContentText("Cliente guardado correctamente.");
+
+            alerta.showAndWait();        
         }
 
 
@@ -296,19 +305,29 @@ public class ClientesController {
                 return;
             }
 
+      
             // Obtener el ID del cliente
             int id = Integer.parseInt(txtId.getText());
+                  // Crear la ventana de confirmación
+            Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
 
-            // Eliminar el cliente
-            dao.eliminar(id);
+            alerta.setTitle("Eliminar Cliente");
 
-            // Actualizar la tabla
-            cargarTabla();
+            alerta.setContentText("¿Está seguro de que desea eliminar este cliente?");
 
-            // Limpiar el formulario
-            limpiarFormulario();
+            if (alerta.showAndWait().get() == javafx.scene.control.ButtonType.OK) {
 
-            System.out.println("Cliente eliminado correctamente.");
+                // Eliminar el cliente
+                dao.eliminar(id);
 
+                // Actualizar la tabla
+                cargarTabla();
+
+                // Limpiar el formulario
+                limpiarFormulario();
+
+                System.out.println("Cliente eliminado correctamente.");
+
+            }
         } 
     }
