@@ -115,18 +115,18 @@
                 <Label text="Observaciones:" GridPane.rowIndex="9" GridPane.valignment="TOP" />
 
                 <TextArea fx:id="txtObservaciones" maxWidth="600.0" minWidth="600.0" prefRowCount="4" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <rowConstraints>
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-            </rowConstraints>
+                <rowConstraints>
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                </rowConstraints>
 
             </GridPane>
 
@@ -139,7 +139,7 @@
 
                 <Button fx:id="btnGuardar" styleClass="boton-guardar" text="Guardar" onAction="#guardarCliente"/>
 
-                <Button fx:id="btnEliminar" styleClass="boton-eliminar" text="Eliminar" />
+                <Button fx:id="btnEliminar" styleClass="boton-eliminar" text="Eliminar" onAction="#eliminarCliente"/>
 
             </HBox>
 
@@ -152,7 +152,8 @@
 
             <TableView fx:id="tablaClientes"
                     prefHeight="260.0"
-                    maxWidth="900.0">
+                    maxWidth="900.0"
+                    >
 
                 <columns>
 

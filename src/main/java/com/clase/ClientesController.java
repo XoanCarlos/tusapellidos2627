@@ -8,12 +8,17 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import com.clase.modelo.Cliente;
 import com.clase.persistencia.ClienteDAO;
 //import com.clase.persistencia.ClienteDAOJson;
 import com.clase.persistencia.ClienteDAOMySQL;
+import javafx.collections.FXCollections;
+
+
+
 
 public class ClientesController {
     // =========================
@@ -94,6 +99,65 @@ public class ClientesController {
     @FXML
     private TableColumn<Cliente,Boolean> colActivo;
 
+  
+    
+    // ========================================
+    // CONFIGURAR COLUMNAS DEL TABLEVIEW
+    // ========================================
+    private void configurarTabla() {
+
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colApellidos.setCellValueFactory(new PropertyValueFactory<>("apellidos"));
+        colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        colMovil.setCellValueFactory(new PropertyValueFactory<>("movil"));
+        colTipo.setCellValueFactory(new PropertyValueFactory<>("tipoCliente"));
+        colActivo.setCellValueFactory(new PropertyValueFactory<>("activo"));
+
+    }
+
+    // ========================================
+    // CARGAR CLIENTES EN LA TABLA
+    // ========================================
+    private void cargarTabla() {
+
+        tablaClientes.setItems(
+                FXCollections.observableArrayList(
+                        dao.listar()
+                )
+        );
+    }
+
+    // ========================================
+    // CARGAR DATOS EN EL TABLEVIEW
+    // Al iniciar la aplicación, se ejecuta el método initialize() 
+    // que configura las columnas de la tabla y carga los datos de los clientes desde la base de datos.
+    // ========================================
+
+    @FXML
+    public void initialize() {
+
+        configurarTabla();
+
+        // Ajustamos el tamaño de las columnas para que se ajusten al ancho de la tabla
+        tablaClientes.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
+
+        cargarTabla();
+
+
+        // Detectar cuando el usuario selecciona una fila
+        tablaClientes.getSelectionModel()
+                .selectedItemProperty()
+                .addListener((observable, anterior, seleccionado) -> {
+
+                    if (seleccionado != null) {
+                        cargarCliente(seleccionado.getId());
+                    }
+
+                });
+
+    }
+
+   
     // =========================================
     // CONVERTIR FORMULARIO -> OBJETO CLIENTE
     // =========================================
@@ -128,8 +192,9 @@ public class ClientesController {
 
         return cliente;
        }
-        @FXML
-        private void nuevoCliente() {
+        
+       @FXML
+       private void nuevoCliente() {
             limpiarFormulario();
         }
 
@@ -151,16 +216,99 @@ public class ClientesController {
             txtObservaciones.clear();
            }
        
-           @FXML
+        
    
+        @FXML
         private void guardarCliente() {
 
+            // Obtener los datos del formulario
             Cliente cliente = obtenerCliente();
 
-            dao.guardar(cliente);
+            // ¿Cliente nuevo o existente?
+            if (txtId.getText().isBlank()) {
 
-            //System.out.println("GUARDADO EN JSON ✔");ç
-            System.out.println("GUARDADO EN MySQL ✔");
+                // INSERT
+                dao.guardar(cliente);
+                System.out.println("Cliente insertado correctamente.");
+
+            } else {
+
+                // UPDATE
+                cliente.setId(Integer.parseInt(txtId.getText()));
+                dao.modificar(cliente);
+                System.out.println("Cliente modificado correctamente.");
+
+            }
+
+            // Actualizar la tabla
+            cargarTabla();
+
+            // Limpiar el formulario
             limpiarFormulario();
         }
+
+
+        // ========================================
+        // CARGAR UN CLIENTE EN EL FORMULARIO
+        // ========================================
+        private void cargarCliente(int id) {
+
+            Cliente cliente = dao.buscarPorId(id);
+
+            if (cliente == null) {
+                return;
+            }
+
+            txtId.setText(String.valueOf(cliente.getId()));
+            txtNombre.setText(cliente.getNombre());
+            txtApellidos.setText(cliente.getApellidos());
+            txtDni.setText(cliente.getDni());
+            txtMovil.setText(cliente.getMovil());
+            txtEmail.setText(cliente.getEmail());
+
+            switch (cliente.getTipoCliente()) {
+
+                case "Particular" -> rbParticular.setSelected(true);
+
+                case "Autónomo" -> rbAutonomo.setSelected(true);
+
+                case "Empresa" -> rbEmpresa.setSelected(true);
+
+            }
+
+            dpFechaAlta.setValue(cliente.getFechaAlta());
+
+            chkActivo.setSelected(cliente.isActivo());
+
+            txtObservaciones.setText(cliente.getObservaciones());
+
+        }
+
+        // ========================================
+        // ELIMINAR UN CLIENTE
+        // ========================================
+        @FXML
+        private void eliminarCliente() {
+
+            // Comprobar que existe un cliente seleccionado
+            if (txtId.getText().isBlank()) {
+                System.out.println("Debe seleccionar un cliente.");
+                return;
+            }
+
+            // Obtener el ID del cliente
+            int id = Integer.parseInt(txtId.getText());
+
+            // Eliminar el cliente
+            dao.eliminar(id);
+
+            // Actualizar la tabla
+            cargarTabla();
+
+            // Limpiar el formulario
+            limpiarFormulario();
+
+            System.out.println("Cliente eliminado correctamente.");
+
+        } 
     }
