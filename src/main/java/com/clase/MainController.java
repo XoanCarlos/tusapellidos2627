@@ -1,8 +1,15 @@
 package com.clase;
 
+import java.util.Optional;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
+
 
 public class MainController {
 
@@ -29,5 +36,58 @@ public class MainController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void salirAplicacion() {
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.initOwner(rootPane.getScene().getWindow());
+        alerta.initModality(Modality.APPLICATION_MODAL);
+
+        alerta.setTitle("Exit CRM");
+        alerta.setHeaderText("Close CRM");
+        alerta.setContentText("Are you sure you want to exit the CRM?");
+
+        Optional<ButtonType> resultado = alerta.showAndWait();
+
+        if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
+            Platform.exit();
+        }
+
+        }
+
+    @FXML
+    private void informeClientes() {
+        System.out.println("Informe clientes");
+    }
+
+    @FXML
+    private void informeProductos() {
+        System.out.println("Informe productos");
+    }
+
+    @FXML
+    private void acercaDe() {
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        alerta.initOwner(rootPane.getScene().getWindow());
+        alerta.initModality(Modality.APPLICATION_MODAL);
+
+        alerta.setTitle("About");
+        alerta.setHeaderText("CRM JavaFX");
+
+        alerta.setContentText("""
+                CRM v0.0.1
+                
+                Application developed in JavaFX for managing clients and products.
+                
+                Devoloper:
+                Juan Carlos
+                
+                Curso:
+                Interfaces Development 202X
+                """);
+
+        alerta.showAndWait();
+
     }
 }
