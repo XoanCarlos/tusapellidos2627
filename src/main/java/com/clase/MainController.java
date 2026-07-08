@@ -1,5 +1,7 @@
 package com.clase;
-
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.util.Optional;
 
 import javafx.application.Platform;
@@ -9,6 +11,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
+
+
 
 
 public class MainController {
@@ -52,9 +56,9 @@ public class MainController {
 
         if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
             Platform.exit();
+            System.exit(0);
         }
-
-        }
+    }
 
     @FXML
     private void informeClientes() {
@@ -64,6 +68,11 @@ public class MainController {
     @FXML
     private void informeProductos() {
         System.out.println("Informe productos");
+    }
+
+    @FXML
+    private void imprimirInforme() {
+        System.out.println("Imprimir factura");
     }
 
     @FXML
@@ -88,6 +97,15 @@ public class MainController {
                 """);
 
         alerta.showAndWait();
+    }
+    
+    @FXML
+    private void abrirExplorador() {
 
+        try {
+            Desktop.getDesktop().open(new File(System.getProperty("user.home")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
