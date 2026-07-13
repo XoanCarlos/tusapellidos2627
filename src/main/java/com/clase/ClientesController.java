@@ -28,8 +28,7 @@ public class ClientesController {
     // Aquí MySQL
     private final ClienteDAO dao = new ClienteDAOMySQL();
 
-
-    @FXML
+    @FXML  // solo se usa para inyectar elementos del FXML, no para variables locales
     private TextField txtId;
 
     @FXML
@@ -98,8 +97,21 @@ public class ClientesController {
     @FXML
     private TableColumn<Cliente,Boolean> colActivo;
 
-  
+   
+    private MainController mainController;
+
     
+
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+          // Una vez recibida la referencia al controlador principal,
+         // actualizamos la barra de estado.
+          mainController.mostrarEstado(
+            "Clientes: " + tablaClientes.getItems().size() + " registros"
+        );
+    }
+
+
     // ========================================
     // CONFIGURAR COLUMNAS DEL TABLEVIEW
     // ========================================
@@ -122,6 +134,7 @@ public class ClientesController {
         tablaClientes.setItems(
                 FXCollections.observableArrayList(
                         dao.listar()
+                        
                 )
         );
     }

@@ -14,6 +14,7 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+
     
 
 <BorderPane fx:id="rootPane" prefHeight="100.0" prefWidth="180.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.clase.MainController">
@@ -32,11 +33,11 @@
                 <Menu text="Informes">
                     <MenuItem
                         text="Informe de Clientes"
-                        onAction="#informeClientes"/>
+                        onAction="#imprimirInforme"/>
 
                     <MenuItem
                         text="Informe de Productos"
-                        onAction="#informeProductos"/>
+                        onAction="#imprimirInforme"/>
                 </Menu>
 
                 <Menu text="Ayuda">
@@ -99,5 +100,20 @@
         <Label text="Bienvenido al sistema" />
 
      </center>
+
+     <bottom>
+
+        <HBox spacing="10"
+            alignment="CENTER"
+            style="-fx-padding:8;
+                    -fx-background-color:#F0F0F0;
+                    -fx-border-color:#C0C0C0;">
+
+            <Label fx:id="lblEstado"
+                text="Aplicación iniciada"/>
+
+        </HBox>
+
+</bottom>
 
 </BorderPane>
