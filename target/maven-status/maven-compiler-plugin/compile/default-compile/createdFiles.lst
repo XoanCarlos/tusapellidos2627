@@ -1,0 +1,12 @@
+com\clase\informes\InformeClientes.class
+com\clase\persistencia\ClienteDAO.class
+com\clase\persistencia\ClienteDAOJson$1.class
+com\clase\modelo\Cliente.class
+com\clase\persistencia\ClienteDAOMySQL.class
+com\clase\MainController.class
+com\clase\ClientesController.class
+com\clase\persistencia\ConexionMySQL.class
+com\clase\ProductosController.class
+com\clase\App.class
+com\clase\persistencia\LocalDateAdapter.class
+com\clase\persistencia\ClienteDAOJson.class
